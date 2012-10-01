@@ -41,6 +41,8 @@ public class XmlHandlerShedule extends DefaultHandler{
 		modules = new Modules();
 		types = new Types();
 		
+		shedule = new Shedule();
+		
 		inGroup = false;
 		inDay = false;
 	}
@@ -74,7 +76,8 @@ public class XmlHandlerShedule extends DefaultHandler{
 			inDay = true;
 		}else if(localName.equals("class")){
 			try {
-				tempDay.add(attributes.getValue("code"), attributes.getValue("location"), attributes.getValue("time"), attributes.getValue("type").charAt(0), attributes.getValue("group"));
+				String group = (attributes.getIndex("group") == -1)? "-1": attributes.getValue("group");
+				tempDay.add(attributes.getValue("code"), attributes.getValue("location"), attributes.getValue("time"), attributes.getValue("type").charAt(0), group);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -290,10 +290,10 @@ public class MainActivity extends FragmentActivity {
 //				e.printStackTrace();
 //			}
             
-            Shedule shedule;
+            Shedule shedule = new Shedule();
 			try {
 			AssetManager assetManager = getActivity().getAssets();
-		    InputStream is = assetManager.open("shedule.xml");
+		    InputStream is = assetManager.open("schedule.xml");
 			try {
 				shedule = XmlParser.parseShedule(is);
 			} catch (IllegalStateException e) {
@@ -316,7 +316,7 @@ public class MainActivity extends FragmentActivity {
             
 		    
             //String firstValue = value.get(1);
-            String[] values = new String[] {  "iPhone", "WindowsMobile",
+            String[] values = new String[] { shedule.getShe(0).getSubject(0), "iPhone", "WindowsMobile",
                     "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
                "Linux", "OS/2" };
             

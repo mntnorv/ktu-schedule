@@ -1,9 +1,9 @@
 package com.povilas.sid.ktu.tvarkarastis.objects;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Day {
 	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -25,7 +25,7 @@ public class Day {
     public void add(String code, String location, String time, Character type, String group) throws ParseException{
     	this.code.add(code);
     	this.location.add(location);
-    	this.time.add((Date) timeFormat.parse(time));
+    	this.time.add((Date) timeFormat.parseObject(time));
     	this.type.add(type);
     	this.group.add(group);
     }

@@ -30,8 +30,8 @@ public class Week {
 	}
 
 	public void setEvenWeek(String date) throws ParseException {
-		Date startDate = (Date) dateFormat.parse(date);
-		Date endDate = new Date(0);
+		Date startDate = dateFormat.parse(date);
+		Date endDate = new Date();
 		long startTime = startDate.getTime();
 		long endTime = endDate.getTime();
 		long diffTime = endTime - startTime;

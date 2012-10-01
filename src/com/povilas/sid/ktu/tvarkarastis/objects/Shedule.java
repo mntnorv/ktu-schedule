@@ -20,13 +20,16 @@ public class Shedule {
 		for (int i = 0; i < week.size(); i++) {
 			SheduleColumn shec = new SheduleColumn();
 			for (int j = 0; j < week.getDays(i).size(); j++) {
-				if(!week.getDays(i).getGroup(j).isEmpty() && week.getDays(i).getGroup(j).equals("A13")){ //User prefs 
+				Boolean noGroup = week.getDays(i).getGroup(j).equals("-1");
+				if(noGroup
+						|| week.getDays(i).getGroup(j).equals("A13")){ // TODO User prefs 
 					shec.add(modules.getTitle(week.getDays(i).getCode(j)),
 							week.getDays(i).getLocation(j),
-							df.format(week.getDays(i).getTime(j)),
+							week.getDays(i).getTime(j),
 							types.getColor(week.getDays(i).getType(j)));
 				}
 			}
+			she.add(shec);
 		}
 	}
 
