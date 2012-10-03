@@ -263,9 +263,7 @@ public class MainActivity extends FragmentActivity {
 //            	e.printStackTrace();
 //            }
 
-            //getHash hashThread =  new getHash();
-            //hashThread.execute(new String[] {"http://www.daukantas.kaunas.lm.lt/min/schedule.hash"});
-            
+       
 //			AssetManager assetManager = getActivity().getAssets();
 //		    InputStream is = null;
 //			try {
@@ -313,10 +311,12 @@ public class MainActivity extends FragmentActivity {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-            
+           
+            getHash hashThread =  new getHash();
+            hashThread.execute(new String[] {"http://www.daukantas.kaunas.lm.lt/min/schedule.hash"});
 		    
-            //String firstValue = value.get(1);
-            String[] values = new String[] { shedule.getShe(0).getSubject(0), "iPhone", "WindowsMobile",
+            //String firstValue = hash;
+            String[] values = new String[] { hash, shedule.getShe(0).getSubject(0), "iPhone", "WindowsMobile",
                     "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
                "Linux", "OS/2" };
             
@@ -382,61 +382,35 @@ public class MainActivity extends FragmentActivity {
         
         
         private class getHash extends AsyncTask<String, Void, String>{
-//        	@Override
-//        	protected String doInBackground(String... params) {
-//        		String str = null;
-//                try {
-//                    // Create a URL for the desired page
-//                    URL url = new URL(params[0]);
-//
-//                    // Read all the text returned by the server
-//                    InputStream is =  url.openStream();
-//                    InputStreamReader isr = new InputStreamReader(is);
-//                    BufferedReader in = new BufferedReader(isr);
-//                    str = in.readLine();
-//                    is.close();
-//                    isr.close();
-//                    in.close();
-//                } catch (MalformedURLException e) {
-//                	e.printStackTrace();
-//                } catch (IOException e) {
-//                	e.printStackTrace();
-//                }
-//                hash = str;
-//        		return str;
-//        	}
-//            @Override
-//            protected void onPostExecute(String result) {
-//            	hash = result;
-//            }
-        	
-            @Override
-            protected String doInBackground(String... urls) {
-              String response = "";
-              for (String url : urls) {
-                DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(url);
+        	@Override
+        	protected String doInBackground(String... params) {
+        		String str = null;
                 try {
-                  HttpResponse execute = client.execute(httpGet);
-                  InputStream content = execute.getEntity().getContent();
+                    // Create a URL for the desired page
+                    URL url = new URL(params[0]);
 
-                  BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                  String s = "";
-                  while ((s = buffer.readLine()) != null) {
-                    response += s;
-                  }
-
-                } catch (Exception e) {
-                  e.printStackTrace();
+                    // Read all the text returned by the server
+                    InputStream is =  url.openStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader in = new BufferedReader(isr);
+                    str = in.readLine();
+                    is.close();
+                    isr.close();
+                    in.close();
+                } catch (MalformedURLException e) {
+                	e.printStackTrace();
+                } catch (IOException e) {
+                	e.printStackTrace();
                 }
-              }
-              return response;
-            }
-
+                hash = str;
+        		return str;
+        	}
             @Override
             protected void onPostExecute(String result) {
-              hash = result;
+            	hash = result;
             }
+        	
+
         }
     }
 }
