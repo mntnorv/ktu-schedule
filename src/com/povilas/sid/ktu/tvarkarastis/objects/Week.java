@@ -10,11 +10,11 @@ public class Week {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	private ArrayList<Day> days;
-	private Boolean evenWeek;
+	private int alternation;
 	
 	public Week(){
 		this.days = new ArrayList<Day>();
-		this.evenWeek = true;
+		this.alternation = 0;
 	}
 
 	public Day getDays(int i) {
@@ -25,8 +25,8 @@ public class Week {
 		this.days.add(day);
 	}
 
-	public Boolean getEvenWeek() {
-		return evenWeek;
+	public int getAlternation() {
+		return alternation;
 	}
 
 	public void setEvenWeek(String date) throws ParseException {
@@ -37,7 +37,7 @@ public class Week {
 		long diffTime = endTime - startTime;
 		long diffWeeks = diffTime / (1000 * 60 * 60 * 24 * 7);
 
-		this.evenWeek = ((diffWeeks % 2) == 0);
+		this.alternation = (int) (diffWeeks % 2);
 	}
 	
 	public int size(){

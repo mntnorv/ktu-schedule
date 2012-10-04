@@ -1,6 +1,15 @@
 <resources>
 
     <string name="app_name">KTU Tvarkaraštis</string>
+    <string-array name="titles">
+        <item>Pirmadienis</item>
+		<item>Antradienis</item>
+		<item>Trečiadienis</item>
+		<item>Ketvirtadienis</item>
+		<item>Penktadienis</item>
+		<item>Šeštadienis</item>
+		<item>Sekmadienis</item>
+    </string-array>
     <string name="title_section3">Section 3</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section1">Section 1</string>

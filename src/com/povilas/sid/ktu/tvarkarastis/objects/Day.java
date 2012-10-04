@@ -12,6 +12,7 @@ public class Day {
 	private ArrayList<String> location;
 	private ArrayList<Date> time;
 	private ArrayList<Character> type;
+	private ArrayList<Byte> alternation;
 	private ArrayList<String> group;
 	
     public Day(){
@@ -19,18 +20,20 @@ public class Day {
     	this.location = new ArrayList<String>();
     	this.time =  new ArrayList<Date>();
     	this.type = new ArrayList<Character>();
+    	this.alternation = new ArrayList<Byte>();
     	this.group = new ArrayList<String>();
     	
     }
-    public void add(String code, String location, String time, Character type, String group) throws ParseException{
+    public void add(String code, String location, String time, Character type, Byte alternation, String group) throws ParseException{
     	this.code.add(code);
     	this.location.add(location);
     	this.time.add((Date) timeFormat.parseObject(time));
     	this.type.add(type);
+    	this.alternation.add(alternation);
     	this.group.add(group);
     }
 
-    public String getCode(int i) {
+	public String getCode(int i) {
 		return code.get(i);
 	}
 	public String getLocation(int i) {
@@ -43,7 +46,11 @@ public class Day {
 		return type.get(i);
 	}
 	
-	public String getGroup(int i) {
+    public Byte getAlternation(int i) {
+		return alternation.get(i);
+	}
+    
+    public String getGroup(int i) {
 		return group.get(i);
 	}
 	

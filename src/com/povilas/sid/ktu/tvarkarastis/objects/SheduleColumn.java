@@ -41,4 +41,8 @@ public class SheduleColumn {
 	public String getColor(int i){
 		return color.get(i);
 	}
+	
+	public int size(){
+		return subject.size();
+	}
 }

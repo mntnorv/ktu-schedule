@@ -30,11 +30,14 @@ import org.xml.sax.XMLReader;
 
 import com.povilas.sid.ktu.tvarkarastis.data.*;
 import com.povilas.sid.ktu.tvarkarastis.objects.Shedule;
+import com.povilas.sid.ktu.tvarkarastis.objects.SheduleColumn;
+import com.povilas.sid.ktu.views.LectureListAdapter;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -70,7 +73,9 @@ public class MainActivity extends FragmentActivity {
      */
     ViewPager mViewPager;
     
-
+    static Shedule shedule = new Shedule();
+    static int pageCount;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +89,29 @@ public class MainActivity extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         
+		try {
+		AssetManager assetManager = this.getAssets();
+	    InputStream is = assetManager.open("schedule.xml");
+		try {
+			shedule = XmlParser.parseShedule(is);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+        pageCount = shedule.size();
 
 
     }
@@ -118,19 +146,19 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return pageCount;
         }
         
-        public void setCount(){
-        	
+        public void setCount(int pageCount){
+        	MainActivity.pageCount = pageCount;        	
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0: return getString(R.string.title_section1).toUpperCase();
-                case 1: return getString(R.string.title_section2).toUpperCase();
-                case 2: return getString(R.string.title_section3).toUpperCase();
+        	Resources res = getResources();
+        	String[] titles = res.getStringArray(R.array.titles);
+            if(position < titles.length){
+                return titles[position].toUpperCase();
             }
             return null;
         }
@@ -288,74 +316,18 @@ public class MainActivity extends FragmentActivity {
 //				e.printStackTrace();
 //			}
             
-            Shedule shedule = new Shedule();
-			try {
-			AssetManager assetManager = getActivity().getAssets();
-		    InputStream is = assetManager.open("schedule.xml");
-			try {
-				shedule = XmlParser.parseShedule(is);
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+
            
             getHash hashThread =  new getHash();
             hashThread.execute(new String[] {"http://www.daukantas.kaunas.lm.lt/min/schedule.hash"});
 		    
-            //String firstValue = hash;
-            String[] values = new String[] { hash, shedule.getShe(0).getSubject(0), "iPhone", "WindowsMobile",
-                    "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-               "Linux", "OS/2" };
+ 
             
-            String[] values1 = new String[] { "Android", "iPhone", "WindowsMobile" };
-            
-            String[] values2 = new String[] { "Ubuntu", "Windows7", "Max OS X",
-               "Linux", "OS/2" };
-            
-            ArrayAdapter<String> files = new ArrayAdapter<String>(getActivity(), 
-                    android.R.layout.simple_list_item_1, 
-                    values);
-            ArrayAdapter<String> files1 = new ArrayAdapter<String>(getActivity(), 
-                    android.R.layout.simple_list_item_1, 
-                    values2);
-            ArrayAdapter<String> files2 = new ArrayAdapter<String>(getActivity(), 
-                    android.R.layout.simple_list_item_1, 
-                    values1);
-            
-            String[] values3 = new String[] { "error", "error"};
-                 
-            ArrayAdapter<String> error = new ArrayAdapter<String>(getActivity(), 
-                         android.R.layout.simple_list_item_1, 
-                         values3);
-            
-            switch (args.getInt(ARG_SECTION_NUMBER)) {
-			case 1:
-				listView.setAdapter(files);
-				break;
-			case 2:
-				listView.setAdapter(files1);
-				break;
-			case 3:
-				listView.setAdapter(files2);
-				break;
+            LectureListAdapter lla = new LectureListAdapter(getActivity(), 
+                    shedule.getShe(args.getInt(ARG_SECTION_NUMBER)-1));
 
-			default:
-				listView.setAdapter(error);
-				break;
-			}
+            listView.setAdapter(lla);
+
 
             return listView;
         }

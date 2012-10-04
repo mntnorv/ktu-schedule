@@ -77,7 +77,15 @@ public class XmlHandlerShedule extends DefaultHandler{
 		}else if(localName.equals("class")){
 			try {
 				String group = (attributes.getIndex("group") == -1)? "-1": attributes.getValue("group");
-				tempDay.add(attributes.getValue("code"), attributes.getValue("location"), attributes.getValue("time"), attributes.getValue("type").charAt(0), group);
+				Byte alternation = 0;
+				if(attributes.getIndex("group") == -1){
+					alternation = 0;
+				}else if(attributes.getValue("time").equals("1")){
+					alternation = 1;
+				}else if(attributes.getValue("time").equals("2")){
+					alternation = 2;
+				}
+				tempDay.add(attributes.getValue("code"), attributes.getValue("location"), attributes.getValue("time"), attributes.getValue("type").charAt(0), alternation, group);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
