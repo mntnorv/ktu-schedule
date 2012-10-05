@@ -84,36 +84,34 @@ public class MainActivity extends FragmentActivity {
         // of the app.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         
 		try {
-		AssetManager assetManager = this.getAssets();
-	    InputStream is = assetManager.open("schedule.xml");
-		try {
-			shedule = XmlParser.parseShedule(is);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			AssetManager assetManager = this.getAssets();
+		    InputStream is = assetManager.open("schedule.xml");
+			try {
+				shedule = XmlParser.parseShedule(is);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
-	} catch (Exception e) {
-		// TODO: handle exception
-		e.printStackTrace();
-	}
-        pageCount = shedule.size();
-
-
+        
+		pageCount = shedule.size();
     }
 
     @Override
@@ -121,9 +119,6 @@ public class MainActivity extends FragmentActivity {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
-
-    
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
@@ -171,10 +166,11 @@ public class MainActivity extends FragmentActivity {
     	ArrayList<String> keys = new ArrayList<String>();
     	ArrayList<String> value = new ArrayList<String>();
     	String hash;
+    	
         public DummySectionFragment() {
         }
+        
         public static final String ARG_SECTION_NUMBER = "section_number";
-
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -315,19 +311,14 @@ public class MainActivity extends FragmentActivity {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-            
-
            
             getHash hashThread =  new getHash();
             hashThread.execute(new String[] {"http://www.daukantas.kaunas.lm.lt/min/schedule.hash"});
-		    
- 
             
             LectureListAdapter lla = new LectureListAdapter(getActivity(), 
                     shedule.getShe(args.getInt(ARG_SECTION_NUMBER)-1));
 
             listView.setAdapter(lla);
-
 
             return listView;
         }
@@ -351,7 +342,6 @@ public class MainActivity extends FragmentActivity {
             }
             return sb.toString();
         }
-        
         
         private class getHash extends AsyncTask<String, Void, String>{
         	@Override
@@ -377,12 +367,11 @@ public class MainActivity extends FragmentActivity {
                 hash = str;
         		return str;
         	}
+        	
             @Override
             protected void onPostExecute(String result) {
             	hash = result;
             }
-        	
-
         }
     }
 }
