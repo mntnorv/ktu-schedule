@@ -36,8 +36,10 @@ public class LectureListAdapter extends BaseAdapter{
 		    String place = ll.getLocation(position);
 		    TextView tt = (TextView) v.findViewById(R.id.toptext);
 		    TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-		    tt.setText(subject + " " + place);                            
+		    TextView rt = (TextView) v.findViewById(R.id.righttext);
+		    tt.setText(subject);                            
 		    bt.setText(time);
+		    rt.setText(place);
 		}
             
         // TODO Change color while touched
