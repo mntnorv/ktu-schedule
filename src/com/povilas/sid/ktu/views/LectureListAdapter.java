@@ -17,8 +17,7 @@ public class LectureListAdapter extends BaseAdapter{
 
     private Activity activity;
 	private SheduleColumn ll = null;
-	private static LayoutInflater inflater = null; 
-	
+	private static LayoutInflater inflater = null;
 	
 	public LectureListAdapter(Activity a, SheduleColumn ll) {
 		activity = a;
@@ -27,23 +26,26 @@ public class LectureListAdapter extends BaseAdapter{
 	}
 	
     public View getView(int position, View convertView, ViewGroup parent) {
-            View v = convertView;
-            if (convertView == null) {
-                v = inflater.inflate(R.layout.list_item, null);
+		View v = convertView;
+		
+		if (convertView == null) {
+		    v = inflater.inflate(R.layout.list_item, null);
+		
+		    String time = ll.getTime(position);
+		    String subject = ll.getSubject(position);
+		    String place = ll.getLocation(position);
+		    TextView tt = (TextView) v.findViewById(R.id.toptext);
+		    TextView bt = (TextView) v.findViewById(R.id.bottomtext);
+		    TextView rt = (TextView) v.findViewById(R.id.righttext);
+		    tt.setText(subject);                            
+		    bt.setText(time);
+		    rt.setText(place);
+		}
             
-            String time = ll.getTime(position);
-            String subject = ll.getSubject(position);
-            String place = ll.getLocation(position);
-            TextView tt = (TextView) v.findViewById(R.id.toptext);
-            TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-            tt.setText(subject+ " "+place );                            
-            bt.setText(time);
-            }
-            // TODO Change color while touched
-            v.setOnTouchListener( new TextView.OnTouchListener() {
-
-				public boolean onTouch(View v, MotionEvent event) {
-			        switch(event.getAction()) {
+        // TODO Change color while touched
+        v.setOnTouchListener( new TextView.OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+		        switch(event.getAction()) {
 			        case MotionEvent.ACTION_DOWN:
 			            v.setBackgroundColor(Color.RED); 
 			            //Toast.makeText(c, "DOWN", Toast.LENGTH_SHORT).show();
@@ -52,14 +54,13 @@ public class LectureListAdapter extends BaseAdapter{
 			        	v.setBackgroundColor(Color.WHITE);
 			            //Toast.makeText(c, "UP", Toast.LENGTH_SHORT).show();
 			            break;
-			        }
+		        }
 
-					return false;
-				}
-            }
-);
+				return false;
+			}
+        });
             
-            return v;
+        return v;
     }
 
 	public int getCount() {
@@ -73,5 +74,4 @@ public class LectureListAdapter extends BaseAdapter{
 	public long getItemId(int position) {
 		return position;
 	}
-
 }
