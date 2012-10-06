@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LectureListAdapter extends BaseAdapter{
 
@@ -40,17 +41,19 @@ public class LectureListAdapter extends BaseAdapter{
 		    tt.setText(subject);                            
 		    bt.setText(time);
 		    rt.setText(place);
+		    tt.setTextColor(Color.parseColor("#" + ll.getColor(position)));
 		}
             
-        // TODO Change color while touched
-        v.setOnTouchListener( new TextView.OnTouchListener() {
+        // TODO Open a menu or something when touched
+        /*v.setOnTouchListener( new TextView.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 		        switch(event.getAction()) {
 			        case MotionEvent.ACTION_DOWN:
-			            v.setBackgroundColor(Color.RED); 
+			            v.setBackgroundColor(Color.parseColor("#" + ll.getColor(1)));
 			            //Toast.makeText(c, "DOWN", Toast.LENGTH_SHORT).show();
 			            break;
 			        case MotionEvent.ACTION_UP:
+			        case MotionEvent.ACTION_CANCEL:
 			        	v.setBackgroundColor(Color.WHITE);
 			            //Toast.makeText(c, "UP", Toast.LENGTH_SHORT).show();
 			            break;
@@ -58,7 +61,7 @@ public class LectureListAdapter extends BaseAdapter{
 
 				return false;
 			}
-        });
+        });*/
             
         return v;
     }
