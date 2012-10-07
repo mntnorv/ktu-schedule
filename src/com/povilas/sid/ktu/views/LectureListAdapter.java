@@ -1,18 +1,20 @@
 package com.povilas.sid.ktu.views;
 
-import com.povilas.sid.ktu.tvarkarastis.R;
-import com.povilas.sid.ktu.tvarkarastis.objects.SheduleColumn;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.povilas.sid.ktu.tvarkarastis.R;
+import com.povilas.sid.ktu.tvarkarastis.objects.SheduleColumn;
 
 public class LectureListAdapter extends BaseAdapter{
 
@@ -23,7 +25,7 @@ public class LectureListAdapter extends BaseAdapter{
 	public LectureListAdapter(Activity a, SheduleColumn ll) {
 		activity = a;
 		this.ll = ll;
-		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
+		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -43,25 +45,30 @@ public class LectureListAdapter extends BaseAdapter{
 		    rt.setText(place);
 		    tt.setTextColor(Color.parseColor("#" + ll.getColor(position)));
 		}
-            
-        // TODO Open a menu or something when touched
-        /*v.setOnTouchListener( new TextView.OnTouchListener() {
+		
+		v.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Animation anim = new DropDownAnimation(v, v.getHeight()*2, true);
+				anim.setDuration(500);
+				v.startAnimation(anim);
+			}
+		});
+		
+		/*v.setOnTouchListener( new TextView.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
-		        switch(event.getAction()) {
-			        case MotionEvent.ACTION_DOWN:
-			            v.setBackgroundColor(Color.parseColor("#" + ll.getColor(1)));
-			            //Toast.makeText(c, "DOWN", Toast.LENGTH_SHORT).show();
-			            break;
-			        case MotionEvent.ACTION_UP:
-			        case MotionEvent.ACTION_CANCEL:
-			        	v.setBackgroundColor(Color.WHITE);
-			            //Toast.makeText(c, "UP", Toast.LENGTH_SHORT).show();
-			            break;
-		        }
+				switch(event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					Animation anim = new DropDownAnimation(v, v.getHeight()*2, true);
+					//anim.setInterpolator(new AccelerateInterpolator());
+					anim.setDuration(500);
+					v.startAnimation(anim);
+					break;
+				}
 
 				return false;
 			}
-        });*/
+		});*/
             
         return v;
     }
