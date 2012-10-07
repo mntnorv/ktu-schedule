@@ -49,6 +49,7 @@ public class LectureListAdapter extends BaseAdapter{
 			public void onClick(View v) {
 				View test = v.findViewById(R.id.expandtext);
 				
+				// TODO Use DP instead of PX
 				if (test.getHeight() == 1) {
 					Animation anim = new DropDownAnimation(test, 1, 40, true);
 					anim.setDuration(250);
