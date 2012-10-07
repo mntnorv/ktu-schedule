@@ -1,4 +1,4 @@
-KTU_Tvarkarastis
-================
+ktu-schedule
+============
 
 A class schedule app for Android
