@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -49,26 +47,19 @@ public class LectureListAdapter extends BaseAdapter{
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Animation anim = new DropDownAnimation(v, v.getHeight()*2, true);
-				anim.setDuration(500);
-				v.startAnimation(anim);
+				View test = v.findViewById(R.id.expandtext);
+				
+				if (test.getHeight() == 1) {
+					Animation anim = new DropDownAnimation(test, 1, 40, true);
+					anim.setDuration(250);
+					test.startAnimation(anim);
+				} else if (test.getHeight() == 40) {
+					Animation anim = new DropDownAnimation(test, 40, 1, true);
+					anim.setDuration(250);
+					test.startAnimation(anim);
+				}
 			}
 		});
-		
-		/*v.setOnTouchListener( new TextView.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				switch(event.getAction()) {
-				case MotionEvent.ACTION_DOWN:
-					Animation anim = new DropDownAnimation(v, v.getHeight()*2, true);
-					//anim.setInterpolator(new AccelerateInterpolator());
-					anim.setDuration(500);
-					v.startAnimation(anim);
-					break;
-				}
-
-				return false;
-			}
-		});*/
             
         return v;
     }

@@ -10,11 +10,11 @@ public class DropDownAnimation extends Animation {
     View view;
     boolean down;
 
-    public DropDownAnimation(View view, int targetHeight, boolean down) {
+    public DropDownAnimation(View view, int startHeight, int targetHeight, boolean down) {
         this.view = view;
+        this.startHeight = startHeight;
         this.targetHeight = targetHeight;
         this.down = down;
-        startHeight = view.getHeight();
     }
 
     @Override

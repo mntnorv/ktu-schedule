@@ -34,6 +34,13 @@
 	        android:layout_height="wrap_content"
 	        android:singleLine="true"
 	        android:text="bottom text" />
+	    
+	    <TextView
+	        android:id="@+id/expandtext"
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dp"
+	        android:singleLine="true"
+	        android:text="no tasks" />
         
     </LinearLayout>
 
