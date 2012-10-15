@@ -6,8 +6,9 @@ import com.povilas.sid.ktu.tvarkarastis.objects.SheduleColumn;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -34,32 +35,25 @@ public class LectureListAdapter extends BaseAdapter{
 		    String time = ll.getTime(position);
 		    String subject = ll.getSubject(position);
 		    String place = ll.getLocation(position);
+		    String color = ll.getColor(position);
 		    TextView tt = (TextView) v.findViewById(R.id.toptext);
 		    TextView bt = (TextView) v.findViewById(R.id.bottomtext);
 		    TextView rt = (TextView) v.findViewById(R.id.righttext);
 		    tt.setText(subject);                            
 		    bt.setText(time);
 		    rt.setText(place);
+		    
+		    StateListDrawable states = new StateListDrawable();
+		    int backgroundColor = Color.parseColor("#"+color);
+		    states.addState(new int[] { -android.R.attr.state_focused,
+		    		android.R.attr.state_pressed,
+		    		-android.R.attr.state_selected,
+		    		-android.R.attr.state_drag_hovered}, new ColorDrawable(backgroundColor)); 
+		    v.setBackground(states);
 		}
-            
-        // TODO Change color while touched
-        v.setOnTouchListener( new TextView.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-		        switch(event.getAction()) {
-			        case MotionEvent.ACTION_DOWN:
-			            v.setBackgroundColor(Color.RED); 
-			            //Toast.makeText(c, "DOWN", Toast.LENGTH_SHORT).show();
-			            break;
-			        case MotionEvent.ACTION_UP:
-			        	v.setBackgroundColor(Color.WHITE);
-			            //Toast.makeText(c, "UP", Toast.LENGTH_SHORT).show();
-			            break;
-		        }
+		
 
-				return false;
-			}
-        });
-            
+        // TODO Change color while touched           
         return v;
     }
 
