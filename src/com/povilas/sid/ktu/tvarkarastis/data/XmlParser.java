@@ -2,8 +2,6 @@ package com.povilas.sid.ktu.tvarkarastis.data;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
