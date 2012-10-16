@@ -18,4 +18,4 @@ The schedule is an .xml file, which describes:
 * All available classes;
 * The schedule itself.
 
-Currently, the schedule is loaded is loaded from a local location and not updated.
+Currently, the schedule is loaded from a local location and not updated.

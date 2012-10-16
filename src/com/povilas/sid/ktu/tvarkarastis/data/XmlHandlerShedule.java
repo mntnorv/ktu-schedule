@@ -66,7 +66,7 @@ public class XmlHandlerShedule extends DefaultHandler{
 			tempSub.add(attributes.getValue("name"), attributes.getValue("code"));
 		}else if (localName.equals("schedule")) {
 			try {
-				week.setEvenWeek(attributes.getValue("semesterStart"));
+				week.setAditionalWeekInformation(attributes.getValue("semesterStart"));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -79,10 +79,10 @@ public class XmlHandlerShedule extends DefaultHandler{
 				String group = (attributes.getIndex("group") == -1)? "-1": attributes.getValue("group");
 				
 				Byte alternation = 0;
-				String time = attributes.getValue("time");
-				if(time == null) {
+				String time = attributes.getValue("week");
+				if(attributes.getIndex("week") == -1){
 					alternation = 0;
-				} else if (time.equals("1")) {
+				}else if (time.equals("1")) {// TODO use swich
 					alternation = 1;
 				} else if (time.equals("2")) {
 					alternation = 2;

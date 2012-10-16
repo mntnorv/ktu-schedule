@@ -3,6 +3,8 @@ package com.povilas.sid.ktu.views;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +37,7 @@ public class LectureListAdapter extends BaseAdapter{
 		    String time = ll.getTime(position);
 		    String subject = ll.getSubject(position);
 		    String place = ll.getLocation(position);
+		    String color = ll.getColor(position);
 		    TextView tt = (TextView) v.findViewById(R.id.toptext);
 		    TextView bt = (TextView) v.findViewById(R.id.bottomtext);
 		    TextView rt = (TextView) v.findViewById(R.id.righttext);
@@ -61,7 +64,6 @@ public class LectureListAdapter extends BaseAdapter{
 				}
 			}
 		});
-            
         return v;
     }
 
