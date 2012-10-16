@@ -44,11 +44,18 @@ public class LectureListAdapter extends BaseAdapter{
 		    tt.setText(subject);                            
 		    bt.setText(time);
 		    rt.setText(place);
-		    tt.setTextColor(Color.parseColor("#" + ll.getColor(position)));
+		    tt.setTextColor(Color.parseColor("#" + color));
+		    
+			/*StateListDrawable states = new StateListDrawable();
+			int backgroundColor = Color.parseColor("#"+color);
+			states.addState(new int[] { -android.R.attr.state_focused,
+			android.R.attr.state_pressed,
+			-android.R.attr.state_selected,
+			-android.R.attr.state_drag_hovered}, new ColorDrawable(backgroundColor));*/
+			//v.setBackground(states);
 		}
 		
 		v.setOnClickListener(new OnClickListener() {
-			@Override
 			public void onClick(View v) {
 				View test = v.findViewById(R.id.expandtext);
 				
@@ -64,6 +71,7 @@ public class LectureListAdapter extends BaseAdapter{
 				}
 			}
 		});
+		
         return v;
     }
 
